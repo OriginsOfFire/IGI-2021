@@ -1,0 +1,28 @@
+﻿<h3>GuitarList</h3>
+
+@if (Guitars == null)
+{
+    <p>Загрузка ...</p>
+}
+else
+{
+    <div class="list-group">
+        @{
+            var i = 1;
+            foreach (var guitar in Guitars)
+            {
+
+                <button type="button" class="list-group-item list-group-item-action">
+                    @(i++) - @guitar.GuitarName
+                </button>
+            }
+        }
+    </div>
+}
+
+@code {
+    [Parameter]
+    public IEnumerable<ListViewModel> Guitars { get; set; }
+    [Parameter]
+    public EventCallback<IEnumerable<ListViewModel>> GuitarsChanged { get; set; }
+}

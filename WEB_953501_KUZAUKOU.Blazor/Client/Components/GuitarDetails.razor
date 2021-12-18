@@ -1,0 +1,26 @@
+﻿@if (Guitar != null)
+{
+    <img src="@imageSrc" class="img-thumbnail" width="150" />
+    <div>
+        <p>@Guitar.GuitarName - @Guitar.Description</p>
+        <div class="badge badge-info ">
+            @Guitar.Strings струн
+        </div>
+</div>
+}
+
+
+@code {
+    [Parameter]
+    public DetailsViewModel Guitar { get; set; }
+    [Parameter]
+    public EventCallback<DetailsViewModel> GuitarChanged { get; set; }
+
+    string imageSrc
+    {
+        get
+        {
+            return $"images/{Guitar.Image}";
+        }
+    }
+}

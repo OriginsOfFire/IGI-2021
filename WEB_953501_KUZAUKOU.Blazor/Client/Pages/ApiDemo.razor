@@ -1,0 +1,17 @@
+﻿@using WEB_953501_KUZAUKOU.Blazor.Client.Components
+
+@page "/apidemo"
+@inject HttpClient client
+
+<div class="container">
+    <GuitarList @bind-Guitars="@Guitars"></GuitarList>
+</div>
+
+@code {
+    [Parameter]
+    public IEnumerable<ListViewModel> Guitars { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        Guitars = await client.GetFromJsonAsync<IEnumerable<ListViewModel>>("api/guitars");
+    }
+}
