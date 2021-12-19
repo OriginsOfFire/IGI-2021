@@ -4,7 +4,8 @@
 @inject HttpClient client
 
 <div class="container">
-    <GuitarList @bind-Guitars="@Guitars"></GuitarList>
+    <GuitarsList @bind-Guitars="@Guitars" SelectedObjectChanged="ShowDetails"></GuitarsList>
+    <GuitarDetails @bind-Guitar="@SelectedGuitar"></GuitarDetails>
 </div>
 
 @code {
@@ -13,5 +14,12 @@
     protected override async Task OnInitializedAsync()
     {
         Guitars = await client.GetFromJsonAsync<IEnumerable<ListViewModel>>("api/guitars");
+    }
+
+    [Parameter]
+    public DetailsViewModel SelectedGuitar { get; set; }
+    private async Task ShowDetails(int id)
+    {
+        SelectedGuitar = await client.GetFromJsonAsync<DetailsViewModel>($"api/guitars/{id}");
     }
 }
