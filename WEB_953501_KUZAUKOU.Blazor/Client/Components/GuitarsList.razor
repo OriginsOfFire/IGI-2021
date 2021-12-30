@@ -1,25 +1,25 @@
-﻿<h3>GuitarList</h3>
+﻿<h3>GuitarsList</h3>
 
 @if (Guitars == null)
 {
     <p>Загрузка ...</p>
 }
-else
-{
-    <div class="list-group">
+    else
+    {
+        <div class="list-group">
         @{
             var i = 1;
             foreach (var guitar in Guitars)
             {
-
-                <button type="button" class="list-group-item list-group-item-action">
-                    @(SelectedId == guitar.GuitarId ? "active" : "")
-                    @(i++) - @guitar.GuitarName
-                </button>
+                <button type="button" class="list-group-item list-group-item-action 
+                @(SelectedId == guitar.GuitarId? "active" : "")"
+                @onclick="@(e => Selected(e, guitar.GuitarId))">
+                @(i++) - @guitar.GuitarName
+            </button>
             }
         }
-    </div>
-}
+        </div>
+    }
 
 @code {
     [Parameter]
@@ -28,6 +28,7 @@ else
     public EventCallback<IEnumerable<ListViewModel>> GuitarsChanged { get; set; }
 
     private int SelectedId = 0;
+
     [Parameter]
     public EventCallback<int> SelectedObjectChanged { get; set; }
 

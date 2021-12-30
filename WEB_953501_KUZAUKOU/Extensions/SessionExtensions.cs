@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Text.Json;
 using System;
-using Newtonsoft.Json;
 
 namespace WEB_953501_KUZAUKOU.Extensions
 {
@@ -11,7 +10,7 @@ namespace WEB_953501_KUZAUKOU.Extensions
         string key, T item)
 
         {
-            var serializedItem = JsonConvert.SerializeObject(item); //= JsonSerializer.Serialize(item);
+            var serializedItem = JsonSerializer.Serialize(item);
             session.SetString(key, serializedItem);
 
         }
@@ -20,7 +19,7 @@ namespace WEB_953501_KUZAUKOU.Extensions
             var item = session.GetString(key);
             return item == null
             ? Activator.CreateInstance<T>()
-            : JsonConvert.DeserializeObject<T>(item);
+            : JsonSerializer.Deserialize<T>(item);
         }
     }
 }

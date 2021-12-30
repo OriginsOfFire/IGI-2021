@@ -1,16 +1,15 @@
-﻿@using WEB_953501_KUZAUKOU.Blazor.Client.Components
-
-@page "/apidemo"
+﻿@page "/apidemo"
+@using WEB_953501_KUZAUKOU.Blazor.Client.Components
 @inject HttpClient client
 
 <div class="container">
-    <GuitarsList @bind-Guitars="@Guitars" SelectedObjectChanged="ShowDetails"></GuitarsList>
-    <GuitarDetails @bind-Guitar="@SelectedGuitar"></GuitarDetails>
+    <GuitarsList @bind-Guitars="Guitars" SelectedObjectChanged="ShowDetails"></GuitarsList>
+    <GuitarDetails @bind-Guitar="SelectedGuitar"></GuitarDetails>
 </div>
 
-@code {
+@code { 
     [Parameter]
-    public IEnumerable<ListViewModel> Guitars { get; set; }
+    public IEnumerable<ListViewModel> Guitars{ get; set; }
     protected override async Task OnInitializedAsync()
     {
         Guitars = await client.GetFromJsonAsync<IEnumerable<ListViewModel>>("api/guitars");
@@ -18,6 +17,7 @@
 
     [Parameter]
     public DetailsViewModel SelectedGuitar { get; set; }
+
     private async Task ShowDetails(int id)
     {
         SelectedGuitar = await client.GetFromJsonAsync<DetailsViewModel>($"api/guitars/{id}");
