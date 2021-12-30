@@ -11,10 +11,11 @@ else
             var i = 1;
             foreach (var guitar in Guitars)
             {
-
-                <button type="button" class="list-group-item list-group-item-action">
-                    @(SelectedId == guitar.GuitarId ? "active" : "")
-                    @(i++) - @guitar.GuitarName
+                <button type="button"
+                class="list-group-item list-group-item-action
+                @(SelectedId == guitar.GuitarId? "active" : "")"
+                @onclick="@(e => Selected(e, guitar.GuitarId))">
+                @(i++) - @guitar.GuitarName
                 </button>
             }
         }
